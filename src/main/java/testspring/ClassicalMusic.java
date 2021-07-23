@@ -8,7 +8,20 @@ package testspring;
  */
 public class ClassicalMusic implements Music{
 
+    private ClassicalMusic() {}
+
+    public void doMyInit() {
+        System.out.println("Doing my initialization");
+    }
+
     public String getSong() {
         return "Mendelssohn's Waltz";
+    }
+
+    public static ClassicalMusic doMyFactory() {
+        return  new ClassicalMusic();}
+
+    public void doMyDestroy() {
+        System.out.println("Doing my destraction");
     }
 }
