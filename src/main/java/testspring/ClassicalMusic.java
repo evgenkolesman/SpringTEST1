@@ -6,22 +6,31 @@ package testspring;
  * @author Kolesnikov Evgeniy (evgeniysanich@mail.ru)
  * @version 1.0
  */
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import java.util.ArrayList;
+
+import java.util.List;
+import java.util.Random;
+
+//@Component
 public class ClassicalMusic implements Music{
 
-    private ClassicalMusic() {}
-
+    @PostConstruct
     public void doMyInit() {
         System.out.println("Doing my initialization");
     }
 
-    public String getSong() {
-        return "Mendelssohn's Waltz";
+    @PreDestroy
+    public void doMyDestroy() {
+        System.out.println("Doing my destroy");
     }
 
-    public static ClassicalMusic doMyFactory() {
-        return  new ClassicalMusic();}
-
-    public void doMyDestroy() {
-        System.out.println("Doing my destraction");
+    public String getSong() {
+        return "Mendelssohn's Waltz";
     }
 }

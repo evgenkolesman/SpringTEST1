@@ -1,7 +1,13 @@
 package testspring;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /*
  * Реализация тестового приложения с помощью Spring
@@ -9,41 +15,30 @@ import java.util.List;
  * @author Kolesnikov Evgeniy (evgeniysanich@mail.ru)
  * @version 1.0
  */
+//@Component
 public class MusicPlayer {
-    private List<Music> music  = new ArrayList<Music>();
+   List<Music> musicList = new ArrayList<Music>();
+    @Value("${musicPlayer.name}")
     private String name;
+    @Value("${musicPlayer.volume}")
     private int volume;
 
-    //Invertion of control
-    public MusicPlayer(List<Music> music) {
-        this.music = music;
+   // @Autowired
+    public MusicPlayer(List<Music> musicList) {
+        this.musicList = musicList;
     }
 
-    public MusicPlayer() {}
 
-    public void setMusic(List<Music> music) {
-        this.music = music;
-    }
-
-    public void setVolume(int volume) {
-        this.volume = volume;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
+    public String playMusic() {
+        Random random = new Random();
+        return "Playing: " + musicList.get(random.nextInt(musicList.size() -1)).getSong() ;
     }
 
     public int getVolume() {
         return volume;
     }
 
-    public void playMusic() {
-        for (Music a : music) {
-        System.out.println("Playing " + a.getSong());
-        }
+    public String getName() {
+        return name;
     }
 }

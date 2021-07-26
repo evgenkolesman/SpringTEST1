@@ -1,6 +1,9 @@
 package testspring;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.lang.annotation.Annotation;
 
 /*
  * Реализация тестового приложения с помощью Spring
@@ -10,13 +13,19 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class TestSpring {
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
-                "applicationContext.xml");
-
-        ClassicalMusic classicalMusic = context.getBean("musicBean", ClassicalMusic.class);
-        System.out.println(classicalMusic.getSong());
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
 
 
+        MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
+        //System.out.println(musicPlayer.playMusic());
+        System.out.println(musicPlayer.getVolume() + " " + musicPlayer.getName());
+
+
+        Computer computer = context.getBean("computer", Computer.class);
+        System.out.println(computer);
+
+
+        context.close();
 
 // Music music = context.getBean("musicBean", Music.class); /* id, nameClass.class */
 // MusicPlayer musicPlayer = new MusicPlayer(music);
@@ -32,10 +41,5 @@ public class TestSpring {
 //        System.out.println(secondMusicPlayer.getVolume());
 //        System.out.println(firstMusicPlayer.getVolume());
 
-
-        //musicPlayer.playMusic();
-        /*System.out.println(musicPlayer.getName());
-        System.out.println(musicPlayer.getVolume());*/
-        context.close();
     }
 }
